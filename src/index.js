@@ -1,0 +1,26 @@
+const app = require('./app')
+
+const port = normalizaPort(process.env.PORT || '3000')
+
+function normalizaPort(val) {
+  const port = parseInt(val, 10)
+  if (isNaN(port)) {
+    return val
+  }
+
+  if (port >= 0) {
+    return port
+  }
+
+  return false
+}
+
+app.use(function (req, res, next) {
+  var err = new Error('Not Found')
+  err.status = 404
+  next(err)
+})
+
+app.listen(port, function () {
+  console.log(`app listening on port ${port}`)
+})
