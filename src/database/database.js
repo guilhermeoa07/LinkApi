@@ -1,7 +1,9 @@
 module.exports = function (url) {
   const mongoose = require('mongoose')
 
-  mongoose.connect(url)
+  mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+  mongoose.set('useFindAndModify', false)
+  mongoose.set('useCreateIndex', true)
   mongoose.Promise = global.Promise
   mongoose.connection.on('connected', () => {
     console.log('Conectado com sucesso ao Mongo')
